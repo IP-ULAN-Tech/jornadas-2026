@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  /* ---------- Cabeçalho ---------- */
   const cabecalho = document.getElementById('cabecalho');
   if (cabecalho) {
     const aoRolar = () => cabecalho.classList.toggle('rolado', window.scrollY > 12);
@@ -9,7 +8,6 @@
     aoRolar();
   }
 
-  /* ---------- Menu mobile ---------- */
   const botaoMenu = document.getElementById('menuToggle');
   const menu = document.querySelector('.menu');
   if (botaoMenu && menu) {
@@ -26,49 +24,145 @@
     });
   }
 
-  /* ---------- Rede molecular ---------- */
-  const ID_PADRAO = 'rede-molecular-pattern-' + Math.random().toString(36).slice(2, 8);
+  /* 
+     REDE MOLECULAR VIVA
+      */
+  const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function criarDefsPadraoMolecular(id) {
-    return '' +
-      '<svg width="0" height="0" style="position:absolute" aria-hidden="true">' +
-        '<defs>' +
-          '<pattern id="' + id + '" x="0" y="0" width="320" height="320" patternUnits="userSpaceOnUse">' +
-            '<line x1="70" y1="60" x2="140" y2="90" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>' +
-            '<line x1="140" y1="90" x2="230" y2="60" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>' +
-            '<line x1="140" y1="90" x2="130" y2="180" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>' +
-            '<line x1="140" y1="90" x2="250" y2="160" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>' +
-            '<line x1="130" y1="180" x2="60" y2="250" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>' +
-            '<line x1="130" y1="180" x2="220" y2="240" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>' +
-            '<line x1="220" y1="240" x2="290" y2="280" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>' +
-            '<line x1="60" y1="250" x2="20" y2="300" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>' +
-            '<circle cx="70" cy="60" r="3.5" fill="rgba(255,255,255,0.75)"/>' +
-            '<circle cx="230" cy="60" r="3.5" fill="rgba(255,255,255,0.75)"/>' +
-            '<circle cx="140" cy="90" r="5" fill="rgba(184,230,0,0.95)"/>' +
-            '<circle cx="250" cy="160" r="3.5" fill="rgba(255,255,255,0.7)"/>' +
-            '<circle cx="130" cy="180" r="4" fill="rgba(255,255,255,0.8)"/>' +
-            '<circle cx="60" cy="250" r="3.5" fill="rgba(255,255,255,0.7)"/>' +
-            '<circle cx="220" cy="240" r="3.5" fill="rgba(184,230,0,0.8)"/>' +
-            '<circle cx="290" cy="280" r="3" fill="rgba(255,255,255,0.55)"/>' +
-            '<circle cx="20" cy="300" r="3" fill="rgba(255,255,255,0.55)"/>' +
-          '</pattern>' +
-        '</defs>' +
-      '</svg>';
+  function criarRede(el, opcoes) {
+    if (!el) return;
+
+    const cfg = Object.assign({
+      total: 30,
+      raioLigacao: 220,
+      velocidade: 0.4,
+      corPonto: 'rgba(184,230,0,0.85)',
+      corLinha: 'rgba(0,165,196,0.7)',
+      opacidadePonto: 0.55,
+      opacidadeLinhaMax: 0.42,
+      tamanhoPonto: [1.6, 3.2]
+    }, opcoes || {});
+
+    const L = 1600;
+    const A = 1000;
+
+    const pontos = [];
+    for (let i = 0; i < cfg.total; i++) {
+      pontos.push({
+        x: Math.random() * L,
+        y: Math.random() * A,
+        vx: (Math.random() - 0.5) * cfg.velocidade,
+        vy: (Math.random() - 0.5) * cfg.velocidade,
+        r: cfg.tamanhoPonto[0] + Math.random() * (cfg.tamanhoPonto[1] - cfg.tamanhoPonto[0])
+      });
+    }
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + L + ' ' + A);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+
+    const gLinhas = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const gPontos = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    svg.appendChild(gLinhas);
+    svg.appendChild(gPontos);
+
+    const linhas = [];
+    const circulos = [];
+
+    for (let i = 0; i < cfg.total; i++) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('r', pontos[i].r);
+      c.setAttribute('fill', cfg.corPonto);
+      c.setAttribute('fill-opacity', cfg.opacidadePonto);
+      gPontos.appendChild(c);
+      circulos.push(c);
+    }
+
+    for (let i = 0; i < cfg.total; i++) {
+      for (let j = i + 1; j < cfg.total; j++) {
+        const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        l.setAttribute('stroke', cfg.corLinha);
+        l.setAttribute('stroke-opacity', '0');
+        l.setAttribute('stroke-width', '1');
+        gLinhas.appendChild(l);
+        linhas.push({ i: i, j: j, el: l });
+      }
+    }
+
+    el.innerHTML = '';
+    el.appendChild(svg);
+
+    function desenhar() {
+      for (let k = 0; k < cfg.total; k++) {
+        const p = pontos[k];
+        if (!reduzido) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > L) p.vx *= -1;
+          if (p.y < 0 || p.y > A) p.vy *= -1;
+        }
+        circulos[k].setAttribute('cx', p.x);
+        circulos[k].setAttribute('cy', p.y);
+      }
+
+      for (let m = 0; m < linhas.length; m++) {
+        const a = pontos[linhas[m].i];
+        const b = pontos[linhas[m].j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const opacidade = dist < cfg.raioLigacao
+          ? (1 - dist / cfg.raioLigacao) * cfg.opacidadeLinhaMax
+          : 0;
+
+        linhas[m].el.setAttribute('x1', a.x);
+        linhas[m].el.setAttribute('y1', a.y);
+        linhas[m].el.setAttribute('x2', b.x);
+        linhas[m].el.setAttribute('y2', b.y);
+        linhas[m].el.setAttribute('stroke-opacity', opacidade.toFixed(3));
+      }
+
+      if (!reduzido) requestAnimationFrame(desenhar);
+    }
+
+    desenhar();
   }
 
-  document.body.insertAdjacentHTML('beforeend', criarDefsPadraoMolecular(ID_PADRAO));
+  // Hero — mais denso e vivo
+  const redeHero = document.getElementById('redeHero');
+  if (redeHero) {
+    criarRede(redeHero, {
+      total: 40,
+      raioLigacao: 240,
+      velocidade: 0.45,
+      corPonto: 'rgba(184,230,0,0.95)',
+      corLinha: 'rgba(184,230,0,0.75)',
+      opacidadePonto: 0.75,
+      opacidadeLinhaMax: 0.55,
+      tamanhoPonto: [1.8, 3.5]
+    });
+  }
 
-  document.querySelectorAll('.rede-molecular').forEach((el) => {
-    el.innerHTML =
-      '<svg width="100%" height="100%" aria-hidden="true">' +
-        '<rect width="100%" height="100%" fill="url(#' + ID_PADRAO + ')"/>' +
-      '</svg>';
+  // Secções escuras — rede visível em navy
+  document.querySelectorAll('.rede-molecular[data-rede]').forEach((el) => {
+    criarRede(el, {
+      total: 28,
+      raioLigacao: 210,
+      velocidade: 0.35,
+      corPonto: 'rgba(255,255,255,0.9)',
+      corLinha: 'rgba(0,165,196,0.85)',
+      opacidadePonto: 0.5,
+      opacidadeLinhaMax: 0.4,
+      tamanhoPonto: [1.5, 3]
+    });
   });
 
-  /* ---------- Reveal ---------- */
+  /* ============================================================
+     REVEAL
+     ============================================================ */
   const alvos = document.querySelectorAll(
     '.secao-topo, .evento-texto, .evento-imagem, .eixo, .programa, ' +
-    '.inova-topo, .inova-imagem, .projetos-carrossel, .inova-bloco, .inova-detalhe, .criterios, ' +
+    '.inova-topo, .projetos-carrossel, .inova-bloco, .inova-detalhe, .criterios, ' +
     '.brevemente, .galeria-carrossel, .modalidade, .prazo, .cronograma, ' +
     '.local-info, .local-mapa'
   );
@@ -88,7 +182,9 @@
     alvos.forEach((el) => el.classList.add('visivel'));
   }
 
-  /* ---------- Scroll suave ---------- */
+  /* ============================================================
+     SCROLL SUAVE
+     ============================================================ */
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (evento) => {
       const id = link.getAttribute('href');
@@ -101,32 +197,31 @@
     });
   });
 
-  /* ---------- Carrossel genérico ---------- */
+  /* 
+     CARROSSEL GENÉRICO
+      */
   function iniciarCarrossel(config) {
     const raiz = document.getElementById(config.raiz);
     const lista = document.getElementById(config.lista);
     const numeros = document.querySelectorAll(config.numeros);
     const setaAnterior = document.getElementById(config.setaAnterior);
     const setaSeguinte = document.getElementById(config.setaSeguinte);
-    const classeSlide = config.classeSlide;
-    const classeNumero = config.classeNumero;
 
     if (!raiz || !lista) return;
 
-    const slides = lista.querySelectorAll('.' + classeSlide);
+    const slides = lista.querySelectorAll('.' + config.classeSlide);
     const total = slides.length;
     if (total === 0) return;
 
     let indice = 0;
     let temporizador = null;
     const intervalo = config.intervalo || 8000;
-    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function irPara(novoIndice, porUtilizador) {
       indice = (novoIndice + total) % total;
       lista.style.transform = 'translateX(' + (-indice * 100) + '%)';
       slides.forEach((s, i) => s.classList.toggle('ativo', i === indice));
-      numeros.forEach((n, i) => n.classList.toggle(classeNumero, i === indice));
+      numeros.forEach((n, i) => n.classList.toggle('ativo', i === indice));
       if (porUtilizador) reiniciar();
     }
 
@@ -155,17 +250,6 @@
 
     raiz.addEventListener('mouseenter', parar);
     raiz.addEventListener('mouseleave', iniciar);
-    raiz.addEventListener('focusin', parar);
-    raiz.addEventListener('focusout', iniciar);
-
-    raiz.addEventListener('keydown', (evento) => {
-      if (evento.key === 'ArrowRight') { evento.preventDefault(); seguinte(true); }
-      if (evento.key === 'ArrowLeft')  { evento.preventDefault(); anterior(true); }
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) parar(); else iniciar();
-    });
 
     irPara(0);
     iniciar();
@@ -178,7 +262,6 @@
     setaAnterior: 'galeriaAnterior',
     setaSeguinte: 'galeriaSeguinte',
     classeSlide: 'galeria-slide',
-    classeNumero: 'ativo',
     intervalo: 9000
   });
 
@@ -189,7 +272,6 @@
     setaAnterior: 'projetosAnterior',
     setaSeguinte: 'projetosSeguinte',
     classeSlide: 'projetos-slide',
-    classeNumero: 'ativo',
     intervalo: 7000
   });
 
@@ -200,7 +282,6 @@
     setaAnterior: 'galeriaEventosAnterior',
     setaSeguinte: 'galeriaEventosSeguinte',
     classeSlide: 'galeria-carrossel-slide',
-    classeNumero: 'ativo',
     intervalo: 6000
   });
 

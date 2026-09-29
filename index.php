@@ -50,9 +50,8 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 <meta name="description" content="<?= e($s['evento_tema']) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
-<link rel="stylesheet" href="assets/css/submissao.css">
 </head>
 <body>
 
@@ -82,11 +81,10 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <a href="#programa">Programa</a>
       <a href="#inova">INOVA IPS</a>
       <a href="#galeria">Galeria</a>
-      <a href="#submissoes">Submissões</a>
       <a href="consultar.php">Consultar</a>
     </nav>
 
-    <a href="#submissoes" class="bt bt-verde cabecalho-bt">Submeter Trabalho</a>
+    <a href="submeter.php" class="bt bt-verde cabecalho-bt">Submeter Trabalho</a>
 
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
       <span></span><span></span><span></span>
@@ -128,7 +126,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     </ul>
   </div>
 
-  <div class="rede-molecular rede-molecular-hero"></div>
+  <div class="rede-molecular rede-molecular-hero" id="redeHero"></div>
   <div class="hero-overlay" aria-hidden="true"></div>
 
   <div class="hero-conteudo">
@@ -153,7 +151,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 
         <div class="hero-acoes">
           <a href="#programa" class="bt bt-contorno">Consultar Programa</a>
-          <a href="#submissoes" class="bt bt-verde">Submeter Trabalho</a>
+          <a href="submeter.php" class="bt bt-verde">Submeter Trabalho</a>
         </div>
       </div>
 
@@ -221,7 +219,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 </section>
 
 <section class="secao secao-escura secao-rede" id="eixos">
-  <div class="rede-molecular"></div>
+  <div class="rede-molecular" id="redeEixos"></div>
   <div class="limite">
     <div class="secao-topo secao-topo-escuro">
       <p class="rotulo">02 · Estrutura Científica</p>
@@ -284,7 +282,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 </section>
 
 <section class="secao secao-inova secao-rede" id="inova">
-  <div class="rede-molecular"></div>
+  <div class="rede-molecular" id="redeInova"></div>
   <div class="limite">
     <div class="inova-topo">
       <div>
@@ -515,7 +513,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 </section>
 
 <section class="secao secao-escura secao-rede" id="participacao">
-  <div class="rede-molecular"></div>
+  <div class="rede-molecular" id="redeParticipacao"></div>
   <div class="limite">
     <div class="secao-topo secao-topo-escuro">
       <p class="rotulo">06 · Modalidades</p>
@@ -544,7 +542,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     <div class="secao-topo secao-topo-escuro">
       <p class="rotulo">07 · Submissões</p>
       <h2 class="secao-titulo">Submeta o seu trabalho</h2>
-      <p class="secao-sub">Preencha o formulário abaixo. As submissões decorrem até 15 de Outubro de 2026.</p>
+      <p class="secao-sub">As submissões decorrem até 15 de Outubro de 2026.</p>
     </div>
 
     <div class="prazos">
@@ -561,105 +559,15 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <?php endforeach; ?>
     </div>
 
-    <form class="form-submissao" id="formSubmissao" novalidate>
-      <div class="form-linha">
-        <div class="form-campo">
-          <label for="tipo">Tipo de submissão</label>
-          <select id="tipo" name="tipo" required>
-            <option value="">Selecione...</option>
-            <option value="comunicacao">Comunicação Oral</option>
-            <option value="poster">Poster Científico</option>
-            <option value="projeto_inova">Projecto INOVA IPS 2026</option>
-          </select>
-        </div>
-
-        <div class="form-campo" id="campoEixo">
-          <label for="eixo">Eixo temático</label>
-          <select id="eixo" name="eixo">
-            <option value="">Selecione...</option>
-            <?php foreach ($eixos as $e): ?>
-              <option value="<?= e($e['numero']) ?>"><?= e($e['numero']) ?> · <?= e($e['titulo']) ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
+    <div class="submissoes-atalho">
+      <div class="submissoes-atalho-texto">
+        <p class="submissoes-atalho-titulo">Pronto para submeter?</p>
+        <p class="submissoes-atalho-sub">Aceda ao formulário completo com upload de PDF, escolha do eixo temático e confirmação imediata.</p>
       </div>
-
-      <div class="form-campo">
-        <label for="titulo">Título do trabalho</label>
-        <input type="text" id="titulo" name="titulo" required maxlength="255">
+      <div class="submissoes-atalho-acoes">
+        <a href="submeter.php" class="bt bt-verde bt-grande">Submeter Trabalho</a>
+        <a href="consultar.php" class="bt bt-contorno" style="border-color:rgba(255,255,255,0.4)">Consultar Submissão</a>
       </div>
-
-      <div class="form-campo">
-        <label for="autores">Autores</label>
-        <input type="text" id="autores" name="autores" required placeholder="Nome do autor principal; Nome do coautor 1">
-        <small>Separe os nomes por ponto e vírgula (;)</small>
-      </div>
-
-      <div class="form-linha">
-        <div class="form-campo">
-          <label for="instituicao">Instituição</label>
-          <input type="text" id="instituicao" name="instituicao" placeholder="Instituto Politécnico de Saurimo">
-        </div>
-        <div class="form-campo">
-          <label for="email">Email de contacto</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-      </div>
-
-      <div class="form-campo">
-        <label for="telefone">Telefone</label>
-        <input type="tel" id="telefone" name="telefone" placeholder="+244 9XX XXX XXX">
-      </div>
-
-      <div class="form-campo">
-        <label for="resumo">Resumo (mín. 50 · máx. 2000 caracteres)</label>
-        <textarea id="resumo" name="resumo" rows="8" required maxlength="2000"></textarea>
-        <small><span id="contadorResumo">0</span> / 2000</small>
-      </div>
-
-      <div class="form-campo">
-        <label for="palavras_chave">Palavras-chave</label>
-        <input type="text" id="palavras_chave" name="palavras_chave" placeholder="Separadas por vírgula">
-      </div>
-
-      <div id="camposInova" hidden>
-        <div class="form-campo">
-          <label for="area_inova">Área de inovação</label>
-          <select id="area_inova" name="area_inova">
-            <option value="">Selecione...</option>
-            <option value="saude">Saúde</option>
-            <option value="educacao">Educação</option>
-            <option value="mineracao">Mineração</option>
-            <option value="construcao">Construção</option>
-            <option value="tecnologia">Tecnologia</option>
-            <option value="outra">Outra</option>
-          </select>
-        </div>
-        <div class="form-campo">
-          <label for="elementos_equipa">Elementos da equipa</label>
-          <textarea id="elementos_equipa" name="elementos_equipa" rows="3" placeholder="Um nome por linha. Máximo 4 elementos."></textarea>
-        </div>
-      </div>
-
-      <div class="form-campo">
-        <label for="ficheiro">Ficheiro PDF (máx. 10 MB)</label>
-        <input type="file" id="ficheiro" name="ficheiro" accept=".pdf,application/pdf">
-        <small>Opcional para comunicação e poster. Recomendado para projectos INOVA.</small>
-      </div>
-
-      <div class="form-acoes">
-        <button type="submit" class="bt bt-verde bt-grande" id="botaoSubmeter">Submeter Trabalho</button>
-        <p class="form-nota">Receberá confirmação no email indicado. As submissões são registadas pela comissão organizadora.</p>
-      </div>
-
-      <div class="form-mensagem" id="formMensagem" hidden></div>
-    </form>
-
-    <div class="consulta-atalho">
-      <p class="consulta-atalho-texto">
-        Já submeteu um trabalho? Pode consultar o estado da sua submissão a qualquer momento.
-      </p>
-      <a href="consultar.php" class="bt bt-contorno" style="border-color:rgba(255,255,255,0.4)">Consultar Submissão</a>
     </div>
   </div>
 </section>
@@ -753,7 +661,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
         <li><a href="#eixos">Eixos</a></li>
         <li><a href="#programa">Programa</a></li>
         <li><a href="#inova">INOVA IPS</a></li>
-        <li><a href="#submissoes">Submissões</a></li>
+        <li><a href="submeter.php">Submeter Trabalho</a></li>
         <li><a href="consultar.php">Consultar Submissão</a></li>
       </ul>
     </div>
@@ -765,7 +673,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
   </div>
 </footer>
 
+<script src="assets/js/redes.js"></script>
 <script src="assets/js/site.js"></script>
-<script src="assets/js/submissao.js"></script>
 </body>
 </html>
