@@ -1,0 +1,11 @@
+# Bloquear listagem
+Options -Indexes
+
+# Bloquear acesso directo aos ficheiros internos
+<FilesMatch "^(inc)$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear acesso directo a .css e .js da pasta inc/
+RewriteEngine On
+RewriteRule ^inc/ - [F,L]

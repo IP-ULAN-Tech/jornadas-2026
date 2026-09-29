@@ -1,0 +1,21 @@
+# ============================================================
+# Jornadas IPS 2026 — Protecção da raiz
+# ============================================================
+
+# Impede listagem de directórios
+Options -Indexes
+
+# Bloqueia acesso a ficheiros sensíveis
+<FilesMatch "\.(env|ini|log|sql|md|json|lock|bak|swp|gitignore)$">
+    Require all denied
+</FilesMatch>
+
+# Bloqueia ficheiros de configuração específicos
+<FilesMatch "^(config|db|helpers|auth)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Bloqueia ficheiros de sistema comuns
+<FilesMatch "^(\.htaccess|\.htpasswd|\.git|\.env|composer\.(json|lock)|package(-lock)?\.json)$">
+    Require all denied
+</FilesMatch>
