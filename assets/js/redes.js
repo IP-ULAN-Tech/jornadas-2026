@@ -7,20 +7,20 @@
     if (!el) return;
 
     const cfg = Object.assign({
-      colunas: 24,
-      linhas: 16,
-      espaco: 66,
-      raioLigacao: 102,
-      corPonto: 'rgba(255,255,255,0.95)',
-      corPontoDestaque: 'rgba(184,230,0,1)',
-      corLinha: 'rgba(184,230,0,0.75)',
-      raioPonto: [3, 4.5],
-      raioDestaque: [6, 8],
-      opacidadeLinhaMax: 0.7,
-      espessuraLinha: 1.7,
-      amplitudeOnda: 22,
-      velocidadeOnda: 0.0013,
-      densidadeDestaque: 0.07
+      colunas: 18,
+      linhas: 12,
+      espaco: 88,
+      raioLigacao: 125,
+      corPonto: 'rgba(255,255,255,0.6)',
+      corPontoDestaque: 'rgba(184,230,0,0.85)',
+      corLinha: 'rgba(0,165,196,0.4)',
+      raioPonto: [2.2, 3.2],
+      raioDestaque: [4, 5.5],
+      opacidadeLinhaMax: 0.4,
+      espessuraLinha: 1.1,
+      amplitudeOnda: 15,
+      velocidadeOnda: 0.001,
+      densidadeDestaque: 0.05
     }, opcoes || {});
 
     const L = (cfg.colunas - 1) * cfg.espaco;
@@ -46,7 +46,7 @@
       const dx = (x - cx) / cx;
       const dy = (y - cy) / cy;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      return Math.max(0.25, 1 - dist * 0.7);
+      return Math.max(0.2, 1 - dist * 0.8);
     }
 
     for (let r = 0; r < cfg.linhas; r++) {
@@ -76,7 +76,7 @@
         const circulo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         circulo.setAttribute('r', p.r);
         circulo.setAttribute('fill', destaque ? cfg.corPontoDestaque : cfg.corPonto);
-        circulo.setAttribute('fill-opacity', (destaque ? 1 : 0.85) * opacBase);
+        circulo.setAttribute('fill-opacity', (destaque ? 0.85 : 0.6) * opacBase);
         gPontos.appendChild(circulo);
 
         pontos.push(p);
@@ -108,13 +108,13 @@
         gLinhas.appendChild(l);
         linhas.push({ a: p, b: baixo, el: l });
       }
-      if (Math.random() < 0.35) {
+      if (Math.random() < 0.25) {
         const diag = mapa[(p.lin + 1) + ',' + (p.col + 1)];
         if (diag) {
           const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
           l.setAttribute('stroke', cfg.corLinha);
           l.setAttribute('stroke-width', cfg.espessuraLinha * 0.7);
-          l.setAttribute('stroke-opacity', '0.6');
+          l.setAttribute('stroke-opacity', '0.5');
           l.setAttribute('stroke-linecap', 'round');
           gLinhas.appendChild(l);
           linhas.push({ a: p, b: diag, el: l, maisFraca: true });
@@ -144,7 +144,7 @@
           circulos[k].setAttribute('cy', p.y.toFixed(2));
 
           if (p.destaque) {
-            const pulso = 0.8 + Math.sin(t * 3 + p.fase) * 0.2;
+            const pulso = 0.75 + Math.sin(t * 2.5 + p.fase) * 0.15;
             circulos[k].setAttribute('fill-opacity', (pulso * p.opacBase).toFixed(3));
           }
         }
@@ -161,7 +161,7 @@
         const opacBase = Math.min(a.opacBase, b.opacBase);
         let opac = (1 - dist / cfg.raioLigacao) * cfg.opacidadeLinhaMax * opacBase;
         if (opac < 0) opac = 0;
-        if (l.maisFraca) opac *= 0.6;
+        if (l.maisFraca) opac *= 0.5;
 
         l.el.setAttribute('x1', a.x.toFixed(2));
         l.el.setAttribute('y1', a.y.toFixed(2));
@@ -178,85 +178,58 @@
 
   document.addEventListener('DOMContentLoaded', function () {
 
+    /* 
+       HERO — sobre imagem fotográfica, ligeiramente mais brilhante
+        */
     const hero = document.getElementById('redeHero');
     if (hero) {
       redeCerebro(hero, {
-        colunas: 26,
-        linhas: 17,
-        espaco: 62,
-        raioLigacao: 105,
-        corPonto: 'rgba(255,255,255,0.95)',
-        corPontoDestaque: 'rgba(184,230,0,1)',
-        corLinha: 'rgba(184,230,0,0.85)',
-        raioPonto: [3, 4.5],
-        raioDestaque: [6, 8],
-        opacidadeLinhaMax: 0.75,
-        espessuraLinha: 1.8,
-        amplitudeOnda: 20,
-        velocidadeOnda: 0.0014,
-        densidadeDestaque: 0.06
-      });
-    }
-
-    const inova = document.getElementById('redeInova');
-    if (inova) {
-      redeCerebro(inova, {
         colunas: 20,
         linhas: 13,
         espaco: 78,
         raioLigacao: 115,
-        corPonto: 'rgba(255,255,255,0.95)',
-        corPontoDestaque: 'rgba(184,230,0,1)',
-        corLinha: 'rgba(184,230,0,0.75)',
-        raioPonto: [2, 3],
-        raioDestaque: [4, 5.5],
-        opacidadeLinhaMax: 0.6,
+        corPonto: 'rgba(255,255,255,0.75)',
+        corPontoDestaque: 'rgba(184,230,0,0.9)',
+        corLinha: 'rgba(184,230,0,0.6)',
+        raioPonto: [2.5, 3.5],
+        raioDestaque: [4.5, 6],
+        opacidadeLinhaMax: 0.5,
         espessuraLinha: 1.3,
-        amplitudeOnda: 18,
+        amplitudeOnda: 16,
         velocidadeOnda: 0.0011,
-        densidadeDestaque: 0.06
+        densidadeDestaque: 0.05
       });
     }
+
+    /* ------------------------------------------------------------
+       EIXOS, INOVA, PARTICIPAÇÃO — exactamente iguais
+       Fundo discreto, presente mas nunca dominante
+       ------------------------------------------------------------ */
+    const configuracaoPadrao = {
+      colunas: 18,
+      linhas: 12,
+      espaco: 88,
+      raioLigacao: 125,
+      corPonto: 'rgba(255,255,255,0.6)',
+      corPontoDestaque: 'rgba(184,230,0,0.85)',
+      corLinha: 'rgba(0,165,196,0.4)',
+      raioPonto: [2.2, 3.2],
+      raioDestaque: [4, 5.5],
+      opacidadeLinhaMax: 0.4,
+      espessuraLinha: 1.1,
+      amplitudeOnda: 15,
+      velocidadeOnda: 0.001,
+      densidadeDestaque: 0.05
+    };
 
     const eixos = document.getElementById('redeEixos');
-    if (eixos) {
-      redeCerebro(eixos, {
-        colunas: 24,
-        linhas: 16,
-        espaco: 66,
-        raioLigacao: 102,
-        corPonto: 'rgba(255,255,255,0.95)',
-        corPontoDestaque: 'rgba(184,230,0,1)',
-        corLinha: 'rgba(184,230,0,0.75)',
-        raioPonto: [3, 4.5],
-        raioDestaque: [6, 8],
-        opacidadeLinhaMax: 0.7,
-        espessuraLinha: 1.7,
-        amplitudeOnda: 22,
-        velocidadeOnda: 0.0013,
-        densidadeDestaque: 0.07
-      });
-    }
+    if (eixos) redeCerebro(eixos, configuracaoPadrao);
+
+    const inova = document.getElementById('redeInova');
+    if (inova) redeCerebro(inova, configuracaoPadrao);
 
     const participacao = document.getElementById('redeParticipacao');
-    if (participacao) {
-      redeCerebro(participacao, {
-        colunas: 24,
-        linhas: 16,
-        espaco: 66,
-        raioLigacao: 102,
-        corPonto: 'rgba(255,255,255,0.95)',
-        corPontoDestaque: 'rgba(184,230,0,1)',
-        corLinha: 'rgba(184,230,0,0.75)',
-        raioPonto: [3, 4.5],
-        raioDestaque: [6, 8],
-        opacidadeLinhaMax: 0.7,
-        espessuraLinha: 1.7,
-        amplitudeOnda: 22,
-        velocidadeOnda: 0.0013,
-        densidadeDestaque: 0.07
-      });
-    }
+    if (participacao) redeCerebro(participacao, configuracaoPadrao);
   });
 
 })();
