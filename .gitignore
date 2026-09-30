@@ -1,0 +1,18 @@
+# Segredos e configuração local
+.env
+.env.*
+!.env.example
+jornadas.env
+
+# Ficheiros enviados por utilizadores (ficam só no servidor)
+/uploads/**
+!/uploads/**/
+!/uploads/.htaccess
+!/uploads/**/.htaccess
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
