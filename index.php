@@ -374,6 +374,20 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       </div>
     </div>
 
+    <?php if (!empty($s['juri_inova'])): ?>
+      <div class="inova-extra">
+        <h3 class="inova-extra-titulo">Composição do Júri</h3>
+        <p class="inova-extra-texto"><?= e($s['juri_inova']) ?></p>
+      </div>
+    <?php endif; ?>
+
+    <?php if (!empty($s['inova_logistica'])): ?>
+      <div class="inova-extra">
+        <h3 class="inova-extra-titulo">Logística dos Stands</h3>
+        <p class="inova-extra-texto"><?= e($s['inova_logistica']) ?></p>
+      </div>
+    <?php endif; ?>
+
     <?php if ($inovaCriterios): ?>
       <div class="criterios">
         <h3 class="criterios-titulo">Critérios de avaliação</h3>
@@ -534,6 +548,13 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
         </article>
       <?php endforeach; ?>
     </div>
+
+    <?php if (!empty($s['publicacao_info'])): ?>
+      <div class="inova-extra" style="margin-top:56px">
+        <h3 class="inova-extra-titulo">Publicação dos Trabalhos</h3>
+        <p class="inova-extra-texto"><?= e($s['publicacao_info']) ?></p>
+      </div>
+    <?php endif; ?>
   </div>
 </section>
 
@@ -542,7 +563,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     <div class="secao-topo secao-topo-escuro">
       <p class="rotulo">07 · Submissões</p>
       <h2 class="secao-titulo">Submeta o seu trabalho</h2>
-      <p class="secao-sub">As submissões decorrem até 15 de Outubro de 2026.</p>
+      <p class="secao-sub">As submissões decorrem até 23 de Outubro de 2026.</p>
     </div>
 
     <div class="prazos">
@@ -562,7 +583,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     <div class="submissoes-atalho">
       <div class="submissoes-atalho-texto">
         <p class="submissoes-atalho-titulo">Pronto para submeter?</p>
-        <p class="submissoes-atalho-sub">Aceda ao formulário completo com upload de PDF, escolha do eixo temático e confirmação imediata.</p>
+        <p class="submissoes-atalho-sub">Temos dois formulários distintos — um para as Jornadas Científicas (comunicação oral ou póster) e outro para a Feira de Inovação INOVA IPS 2026.</p>
       </div>
       <div class="submissoes-atalho-acoes">
         <a href="submeter.php" class="bt bt-verde bt-grande">Submeter Trabalho</a>
@@ -651,6 +672,15 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <p class="rodape-texto">"<?= e($s['evento_tema']) ?>"</p>
       <p class="rodape-rotulo">Lema</p>
       <p class="rodape-texto">"<?= e($s['evento_lema']) ?>"</p>
+      <p class="rodape-rotulo">Contacto</p>
+      <p class="rodape-texto">
+        <a href="mailto:<?= e($s['email_institucional'] ?? 'jornadascientificas@ip-ulan.ao') ?>">
+          <?= e($s['email_institucional'] ?? 'jornadascientificas@ip-ulan.ao') ?>
+        </a><br>
+        <a href="<?= e($s['webmail_url'] ?? 'https://webmail.ip-ulan.ao') ?>" target="_blank" rel="noopener">
+          Webmail institucional
+        </a>
+      </p>
     </div>
 
     <div class="rodape-coluna">
