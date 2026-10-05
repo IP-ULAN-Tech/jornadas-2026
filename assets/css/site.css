@@ -1767,3 +1767,28 @@ figure figcaption .slide-legenda {
   .submissoes-atalho-acoes { flex-direction: column; }
   .submissoes-atalho-acoes .bt { width: 100%; }
 }
+.inova-extra {
+  margin-bottom: 56px;
+  padding: 32px 36px;
+  background: rgba(255,255,255,0.03);
+  border-left: 4px solid var(--verde-400);
+  border-radius: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.inova-extra-titulo {
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.005em;
+  color: var(--branco);
+  margin-bottom: 16px;
+}
+
+.inova-extra-texto {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.82);
+  max-width: 900px;
+}

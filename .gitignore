@@ -25,3 +25,46 @@ node_modules
 *.sw?
 
 .env
+# Dependências
+node_modules/
+vendor/
+
+# Configurações locais (NUNCA versionar)
+.env
+.env.local
+.env.*.local
+
+# Dados sensíveis
+server/data/
+server/uploads/
+
+# Uploads do utilizador
+uploads/submissoes/
+uploads/slides/
+uploads/sobre/
+uploads/programa/
+uploads/inova/
+uploads/premios/
+uploads/galeria/
+uploads/geral/
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backups locais
+*.bak
+*.sql
+!sql/schema.sql
+!sql/seed.sql
