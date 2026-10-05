@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "none",
+    "strict": true,
+    "noEmitOnError": true,
+    "rootDir": "assets/ts",
+    "outDir": "assets/js",
+    "skipLibCheck": true
+  },
+  "include": ["assets/ts/**/*.ts"]
+}

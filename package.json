@@ -1,0 +1,15 @@
+{
+  "name": "jornadas-ips-2026",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/utilities.css --minify",
+    "build:js": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2"
+  }
+}
