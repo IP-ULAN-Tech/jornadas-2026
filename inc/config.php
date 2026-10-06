@@ -18,7 +18,7 @@ if ($documentRoot !== false) {
 
 return [
     'db_host'    => '127.0.0.1',
-    'db_name'    => 'jornadas',
+    'db_name'    => 'jornadas_ips_2026',
     'db_user'    => 'jornadas',
     'db_pass'    => '12345678',
     'db_charset' => 'utf8mb4',
