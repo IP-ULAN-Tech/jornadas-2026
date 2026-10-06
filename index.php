@@ -3,6 +3,35 @@ require_once __DIR__ . '/inc/helpers.php';
 
 $s = settings();
 
+$documentos = [];
+foreach (glob(__DIR__ . '/assets/pdfs/*.pdf') ?: [] as $ficheiroPdf) {
+  $nomeFicheiro = basename($ficheiroPdf);
+  $nomeBusca = strtolower($nomeFicheiro);
+  $tituloDocumento = $nomeFicheiro;
+  $descricaoDocumento = 'Documento oficial de apoio à participação nas Jornadas.';
+
+  if (strpos($nomeBusca, 'normas') !== false) {
+    $tituloDocumento = 'Normas das Jornadas';
+    $descricaoDocumento = 'Consulte as regras, orientações e critérios para participar e submeter trabalhos.';
+  } elseif (strpos($nomeBusca, 'resumo') !== false) {
+    $tituloDocumento = 'Modelo de Resumo Alargado';
+    $descricaoDocumento = 'Use este modelo para estruturar e formatar o resumo do seu trabalho.';
+  } elseif (strpos($nomeBusca, 'ficha') !== false) {
+    $tituloDocumento = 'Ficha de Inscrição do Projeto';
+    $descricaoDocumento = 'Ficha para reunir os dados necessários à inscrição do projeto.';
+  }
+
+  $documentos[] = [
+    'ficheiro' => $nomeFicheiro,
+    'titulo' => $tituloDocumento,
+    'descricao' => $descricaoDocumento,
+    'tamanho' => filesize($ficheiroPdf),
+  ];
+}
+usort($documentos, static function ($a, $b) {
+  return strcmp($a['titulo'], $b['titulo']);
+});
+
 $slides = db()->query('SELECT * FROM slides WHERE ativo = 1 ORDER BY ordem, id')->fetchAll();
 
 $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->fetchAll();
@@ -51,8 +80,8 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css">
-<link rel="stylesheet" href="assets/css/utilities.css">
+<link rel="stylesheet" href="assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+<link rel="stylesheet" href="assets/css/utilities.css?v=<?= filemtime(__DIR__ . '/assets/css/utilities.css') ?>">
 </head>
 <body>
 
@@ -82,6 +111,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <a href="#programa">Programa</a>
       <a href="#inova">INOVA IPS</a>
       <a href="#galeria">Galeria</a>
+      <a href="#documentos">Dúvidas e documentos</a>
       <a href="#submissoes">Submissões</a>
       <a href="consultar.php">Consultar</a>
     </nav>
@@ -574,10 +604,46 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
   </div>
 </section>
 
+<section class="secao secao-local documentos" id="documentos">
+  <div class="limite">
+    <div class="secao-topo">
+      <p class="rotulo">08 · Apoio ao concorrente</p>
+      <h2 class="secao-titulo">Dúvidas e documentos</h2>
+      <p class="secao-sub">Consulte as normas e descarregue os modelos oficiais antes de preparar a sua submissão.</p>
+    </div>
+
+    <p class="documentos-meta"><strong><?= count($documentos) ?></strong> <?= count($documentos) === 1 ? 'documento oficial disponível' : 'documentos oficiais disponíveis' ?></p>
+
+    <?php if ($documentos): ?>
+      <div class="documentos-lista">
+        <?php foreach ($documentos as $documento): ?>
+          <?php $urlDocumento = 'assets/pdfs/' . rawurlencode($documento['ficheiro']); ?>
+          <article class="documento-item">
+            <div class="documento-identidade">
+              <span class="documento-selo" aria-hidden="true">PDF</span>
+              <div>
+                <h3><?= e($documento['titulo']) ?></h3>
+                <p><?= e($documento['descricao']) ?></p>
+                <span class="documento-tamanho"><?= number_format($documento['tamanho'] / 1048576, 1, ',', '.') ?> MB · PDF</span>
+              </div>
+            </div>
+            <div class="documento-acoes">
+              <a class="documento-ver" href="<?= e($urlDocumento) ?>" target="_blank" rel="noopener">Ver documento</a>
+              <a class="documento-baixar" href="<?= e($urlDocumento) ?>" download>Descarregar</a>
+            </div>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    <?php else: ?>
+      <p class="documentos-vazio">Os documentos de apoio serão disponibilizados em breve.</p>
+    <?php endif; ?>
+  </div>
+</section>
+
 <section class="secao secao-clara" id="cronograma">
   <div class="limite">
     <div class="secao-topo">
-      <p class="rotulo">08 · Calendário</p>
+      <p class="rotulo">09 · Calendário</p>
       <h2 class="secao-titulo">Cronograma</h2>
     </div>
 
@@ -596,7 +662,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 <section class="secao secao-local" id="contactos">
   <div class="limite local-grelha">
     <div class="local-info">
-      <p class="rotulo">09 · Local</p>
+      <p class="rotulo">10 · Local</p>
       <h2 class="secao-titulo">Local do Evento</h2>
       <address>
         <strong><?= e($s['local_nome']) ?></strong>
@@ -663,6 +729,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
         <li><a href="#eixos">Eixos</a></li>
         <li><a href="#programa">Programa</a></li>
         <li><a href="#inova">INOVA IPS</a></li>
+        <li><a href="#documentos">Dúvidas e documentos</a></li>
         <li><a href="submeter.php">Submeter Trabalho</a></li>
         <li><a href="consultar.php">Consultar Submissão</a></li>
       </ul>
