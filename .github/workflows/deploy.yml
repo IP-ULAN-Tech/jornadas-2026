@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: deploy-producao
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - name: Verificar sintaxe PHP
+        run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l > /dev/null
+
+  deploy:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Enviar ficheiros
+        run: |
+          rsync -rltz --omit-dir-times \
+            -e "ssh -i ~/.ssh/id_deploy -p ${{ secrets.SSH_PORT }}" \
+            --include='/uploads/.htaccess' \
+            --include='/uploads/*/' \
+            --include='/uploads/*/.htaccess' \
+            --exclude='/uploads/*' \
+            --exclude='.git' --exclude='.github' \
+            --exclude='.env*' --exclude='*.sql' \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/jornadas-2026/
