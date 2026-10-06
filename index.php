@@ -110,10 +110,8 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <a href="#eixos">Eixos</a>
       <a href="#programa">Programa</a>
       <a href="#inova">INOVA IPS</a>
-      <a href="#galeria">Galeria</a>
       <a href="#documentos">Dúvidas e documentos</a>
       <a href="#submissoes">Submissões</a>
-      <a href="consultar.php">Consultar</a>
     </nav>
 
     <a href="submeter.php" class="bt bt-verde cabecalho-bt hover:-translate-y-0.5 active:translate-y-0">Submeter Trabalho</a>
