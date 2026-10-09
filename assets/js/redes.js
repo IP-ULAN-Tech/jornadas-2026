@@ -223,7 +223,18 @@
     };
 
     const eixos = document.getElementById('redeEixos');
-    if (eixos) redeCerebro(eixos, configuracaoPadrao);
+    if (eixos) {
+      redeCerebro(eixos, Object.assign({}, configuracaoPadrao, {
+        corPonto: 'rgba(255,255,255,0.9)',
+        corPontoDestaque: 'rgba(232,196,119,1)',
+        corLinha: 'rgba(139,183,214,0.58)',
+        raioPonto: [2.8, 3.8],
+        raioDestaque: [5, 7],
+        opacidadeLinhaMax: 0.55,
+        espessuraLinha: 1.35,
+        densidadeDestaque: 0.09
+      }));
+    }
 
     const inova = document.getElementById('redeInova');
     if (inova) redeCerebro(inova, configuracaoPadrao);

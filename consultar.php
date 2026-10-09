@@ -361,9 +361,8 @@ $s = settings();
       <a href="index.php#eixos">Eixos</a>
       <a href="index.php#programa">Programa</a>
       <a href="index.php#inova">INOVA IPS</a>
-      <a href="index.php#galeria">Galeria</a>
+      <a href="index.php#documentos">Dúvidas e documentos</a>
       <a href="index.php#submissoes">Submissões</a>
-      <a href="consultar.php">Consultar</a>
     </nav>
 
     <a href="index.php#submissoes" class="bt bt-verde cabecalho-bt hover:-translate-y-0.5 active:translate-y-0">Submeter Trabalho</a>
