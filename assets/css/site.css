@@ -1606,6 +1606,7 @@ figure figcaption .slide-legenda {
 }
 .documento-acoes {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 }
@@ -1613,7 +1614,7 @@ figure figcaption .slide-legenda {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 1 1 0;
+  flex: 1 1 100px;
   min-height: 46px;
   padding: 0 12px;
   border: 1px solid var(--navy-800);

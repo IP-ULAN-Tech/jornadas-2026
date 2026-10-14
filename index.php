@@ -4,32 +4,56 @@ require_once __DIR__ . '/inc/helpers.php';
 $s = settings();
 
 $documentos = [];
-foreach (glob(__DIR__ . '/assets/pdfs/*.pdf') ?: [] as $ficheiroPdf) {
-  $nomeFicheiro = basename($ficheiroPdf);
+
+$tiposDocumento = [
+  'normas' => [
+    'titulo' => 'Normas das Jornadas',
+    'descricao' => 'Consulte as regras, orientações e critérios para participar e submeter trabalhos.',
+  ],
+  'resumo' => [
+    'titulo' => 'Modelo de Resumo Alargado',
+    'descricao' => 'Use este modelo para estruturar e formatar o resumo do seu trabalho.',
+  ],
+  'ficha' => [
+    'titulo' => 'Ficha de Inscrição do Projeto',
+    'descricao' => 'Ficha para reunir os dados necessários à inscrição do projeto.',
+  ],
+];
+
+foreach (glob(__DIR__ . '/assets/pdfs/*') ?: [] as $ficheiroDocumento) {
+  if (!is_file($ficheiroDocumento)) {
+    continue;
+  }
+
+  $nomeFicheiro = basename($ficheiroDocumento);
+  $extensao = strtolower(pathinfo($nomeFicheiro, PATHINFO_EXTENSION));
+  if (!in_array($extensao, ['pdf', 'docx'], true)) {
+    continue;
+  }
+
   $nomeBusca = strtolower($nomeFicheiro);
   $tituloDocumento = $nomeFicheiro;
   $descricaoDocumento = 'Documento oficial de apoio à participação nas Jornadas.';
-
-  if (strpos($nomeBusca, 'normas') !== false) {
-    $tituloDocumento = 'Normas das Jornadas';
-    $descricaoDocumento = 'Consulte as regras, orientações e critérios para participar e submeter trabalhos.';
-  } elseif (strpos($nomeBusca, 'resumo') !== false) {
-    $tituloDocumento = 'Modelo de Resumo Alargado';
-    $descricaoDocumento = 'Use este modelo para estruturar e formatar o resumo do seu trabalho.';
-  } elseif (strpos($nomeBusca, 'ficha') !== false) {
-    $tituloDocumento = 'Ficha de Inscrição do Projeto';
-    $descricaoDocumento = 'Ficha para reunir os dados necessários à inscrição do projeto.';
+  foreach ($tiposDocumento as $termo => $detalhesDocumento) {
+    if (strpos($nomeBusca, $termo) !== false) {
+      $tituloDocumento = $detalhesDocumento['titulo'];
+      $descricaoDocumento = $detalhesDocumento['descricao'];
+      break;
+    }
   }
 
   $documentos[] = [
-    'ficheiro' => $nomeFicheiro,
     'titulo' => $tituloDocumento,
     'descricao' => $descricaoDocumento,
-    'tamanho' => filesize($ficheiroPdf),
+    'ficheiro' => $nomeFicheiro,
+    'formato' => strtoupper($extensao),
+    'tamanho' => filesize($ficheiroDocumento),
   ];
 }
+
 usort($documentos, static function ($a, $b) {
-  return strcmp($a['titulo'], $b['titulo']);
+  $comparacaoTitulo = strcmp($a['titulo'], $b['titulo']);
+  return $comparacaoTitulo !== 0 ? $comparacaoTitulo : strcmp($a['ficheiro'], $b['ficheiro']);
 });
 
 $slides = db()->query('SELECT * FROM slides WHERE ativo = 1 ORDER BY ordem, id')->fetchAll();
@@ -610,24 +634,24 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <p class="secao-sub">Consulte as normas e descarregue os modelos oficiais antes de preparar a sua submissão.</p>
     </div>
 
-    <p class="documentos-meta"><strong><?= count($documentos) ?></strong> <?= count($documentos) === 1 ? 'documento oficial disponível' : 'documentos oficiais disponíveis' ?></p>
+    <p class="documentos-meta"><strong><?= count($documentos) ?></strong> <?= count($documentos) === 1 ? 'ficheiro disponível para descarregar' : 'ficheiros disponíveis para descarregar' ?></p>
 
     <?php if ($documentos): ?>
       <div class="documentos-lista">
         <?php foreach ($documentos as $documento): ?>
           <?php $urlDocumento = 'assets/pdfs/' . rawurlencode($documento['ficheiro']); ?>
+          <?php $tamanhoDocumento = number_format($documento['tamanho'] / 1024, 0, ',', '.') . ' KB'; ?>
           <article class="documento-item">
             <div class="documento-identidade">
-              <span class="documento-selo" aria-hidden="true">PDF</span>
+              <span class="documento-selo" aria-hidden="true"><?= e($documento['formato']) ?></span>
               <div>
                 <h3><?= e($documento['titulo']) ?></h3>
                 <p><?= e($documento['descricao']) ?></p>
-                <span class="documento-tamanho"><?= number_format($documento['tamanho'] / 1048576, 1, ',', '.') ?> MB · PDF</span>
+                <span class="documento-tamanho"><?= e($documento['ficheiro']) ?></span>
               </div>
             </div>
             <div class="documento-acoes">
-              <a class="documento-ver" href="<?= e($urlDocumento) ?>" target="_blank" rel="noopener">Ver documento</a>
-              <a class="documento-baixar" href="<?= e($urlDocumento) ?>" download>Descarregar</a>
+              <a class="documento-baixar" href="<?= e($urlDocumento) ?>" download aria-label="Descarregar <?= e($documento['formato']) ?>: <?= e($documento['ficheiro']) ?>">Descarregar <?= e($documento['formato']) ?> · <?= e($tamanhoDocumento) ?></a>
             </div>
           </article>
         <?php endforeach; ?>
