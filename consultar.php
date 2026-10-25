@@ -8,7 +8,7 @@ $s = settings();
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consultar Submissão · <?= e($s['evento_titulo_1'] . ' ' . $s['evento_titulo_2']) ?></title>
-<meta name="description" content="Consultar o estado de uma submissão às Jornadas Técnico-Científicas do IPS 2026.">
+<meta name="description" content="Consultar o estado de uma submissão às Jornadas Técnico-Científicas do IPS 2027.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -352,7 +352,7 @@ $s = settings();
 
       <div class="marca-texto">
         <span class="marca-inst"><?= e($s['evento_organizacao']) ?></span>
-        <span class="marca-evento">Jornadas Técnico-Científicas · 2026</span>
+        <span class="marca-evento">Jornadas Técnico-Científicas · 2027</span>
       </div>
     </a>
 
@@ -459,7 +459,7 @@ $s = settings();
       <p class="rodape-inst"><?= e($s['evento_instituicao']) ?></p>
       <p class="rodape-unidade"><?= e($s['evento_organizacao']) ?></p>
       <p class="rodape-evento">Jornadas Técnico-Científicas — <?= e($s['evento_edicao']) ?></p>
-      <p class="rodape-evento">INOVA IPS 2026</p>
+      <p class="rodape-evento">INOVA IPS 2027</p>
     </div>
 
     <div class="rodape-coluna">
@@ -483,7 +483,7 @@ $s = settings();
 
   <div class="limite rodape-base">
     <p class="rodape-lema"><?= e($s['rodape_lema']) ?></p>
-    <p class="rodape-copy">© 2026 <?= e($s['evento_organizacao']) ?> · <?= e($s['evento_instituicao']) ?></p>
+    <p class="rodape-copy">© 2027 <?= e($s['evento_organizacao']) ?> · <?= e($s['evento_instituicao']) ?></p>
   </div>
 </footer>
 

@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="pt-AO">
 <head>
 <meta charset="UTF-8">
-<title>Instalação · Jornadas IPS 2026</title>
+<title>Instalação · Jornadas IPS 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/admin.css">

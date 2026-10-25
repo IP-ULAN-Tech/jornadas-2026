@@ -48,7 +48,7 @@ $admin = admin_actual();
   <div class="barra-lateral-marca">
     <div>
       <p class="barra-lateral-inst">Instituto Politécnico de Saurimo</p>
-      <p class="barra-lateral-titulo">Jornadas Técnico-Científicas<br>Edição 2026</p>
+      <p class="barra-lateral-titulo">Jornadas Técnico-Científicas<br>Edição 2027</p>
     </div>
     <button type="button" class="menu-admin-toggle" id="menuAdminToggle" aria-label="Abrir menu administrativo" aria-expanded="false" aria-controls="menuAdminConteudo">
       <span aria-hidden="true">+</span> Menu
@@ -77,7 +77,7 @@ $admin = admin_actual();
     <?php endforeach; ?>
 
     <div class="barra-lateral-rodape">
-      <p>Versão 1.0 · 2026</p>
+      <p>Versão 1.0 · 2027</p>
     </div>
   </div>
 </aside>

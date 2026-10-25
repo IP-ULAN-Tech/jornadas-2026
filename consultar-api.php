@@ -73,7 +73,7 @@ if (!$sub) {
 $tipos = [
     'comunicacao'   => 'Comunicação Oral',
     'poster'        => 'Poster Científico',
-    'projeto_inova' => 'Projecto INOVA IPS 2026',
+    'projeto_inova' => 'Projecto INOVA IPS 2027',
 ];
 
 $autores = explode(';', $sub['autores']);

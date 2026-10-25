@@ -159,7 +159,7 @@
         <h2>Submissão recebida com sucesso</h2>
         <p class="resultado-numero">#${dados.id}</p>
         <p>
-          O seu trabalho foi registado no sistema das Jornadas Técnico-Científicas do IPS — Edição 2026.
+          O seu trabalho foi registado no sistema das Jornadas Técnico-Científicas do IPS — Edição 2027.
           <strong>Guarde o número de registo</strong> — vai precisar dele para consultar o estado da submissão.
         </p>
         <p>
@@ -168,7 +168,7 @@
         </p>
         <p class="resultado-rodape">
           A comissão organizadora irá analisar o trabalho e comunicará a decisão
-          por email no prazo indicado (até 3 de Novembro de 2026).
+          por email no prazo indicado (até 3 de Novembro de 2027).
         </p>
         <div class="resultado-acoes">
           <a href="consultar.php" class="resultado-botao">Consultar estado da submissão</a>

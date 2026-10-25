@@ -14,7 +14,7 @@ if (!headers_sent()) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= e($tituloPagina) ?> · Painel Jornadas IPS 2026</title>
+<title><?= e($tituloPagina) ?> · Painel Jornadas IPS 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/admin.css">

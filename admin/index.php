@@ -7,7 +7,7 @@ if (admin_autenticado()) redirecionar('dashboard.php');
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jornadas Técnico-Científicas · IPS 2026</title>
+<title>Jornadas Técnico-Científicas · IPS 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/admin.css">
@@ -17,12 +17,12 @@ if (admin_autenticado()) redirecionar('dashboard.php');
 <div class="splash-marca">
   <p class="splash-inst">Instituto Politécnico de Saurimo</p>
   <h1 class="splash-titulo">Jornadas<br>Técnico-Científicas</h1>
-  <p class="splash-sub">Edição 2026 · Painel de Gestão</p>
+  <p class="splash-sub">Edição 2027 · Painel de Gestão</p>
 </div>
 
 <a href="login.php" class="splash-acao">Entrar no painel</a>
 
-<p class="splash-rodape">Universidade Lueji A'Nkonde · 2026</p>
+<p class="splash-rodape">Universidade Lueji A'Nkonde · 2027</p>
 
 </body>
 </html>
