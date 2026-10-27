@@ -17,7 +17,7 @@ $stmt = db()->prepare($sql);
 $stmt->execute($p);
 
 header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename="submissoes-jornadas-2027.csv"');
+header('Content-Disposition: attachment; filename="submissoes-jornadas-2026.csv"');
 
 echo "\xEF\xBB\xBF";
 $out = fopen('php://output', 'w');

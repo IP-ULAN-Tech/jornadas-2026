@@ -213,7 +213,7 @@ switch ($acao) {
         $linhas = $stmt->fetchAll();
 
         header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename="submissoes-jornadas-2027.csv"');
+        header('Content-Disposition: attachment; filename="submissoes-jornadas-2026.csv"');
 
         echo "\xEF\xBB\xBF"; // BOM UTF-8 para Excel
         $out = fopen('php://output', 'w');

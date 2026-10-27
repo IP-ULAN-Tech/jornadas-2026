@@ -10,7 +10,7 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submeter Trabalho · <?= e($s['evento_titulo_1'] . ' ' . $s['evento_titulo_2']) ?></title>
-<meta name="description" content="Submeta o seu trabalho científico para as Jornadas Técnico-Científicas do IPS 2027.">
+<meta name="description" content="Submeta o seu trabalho científico para as Jornadas Técnico-Científicas do IPS 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
 
       <div class="marca-texto">
         <span class="marca-inst"><?= e($s['evento_organizacao']) ?></span>
-        <span class="marca-evento">Jornadas Técnico-Científicas · 2027</span>
+        <span class="marca-evento">Jornadas Técnico-Científicas · 2026</span>
       </div>
     </a>
 
@@ -68,7 +68,7 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
     <h1 class="submeter-titulo">Submeta o seu trabalho</h1>
     <p class="submeter-sub">
       Preencha o formulário abaixo. As submissões são registadas pela comissão
-      organizadora das Jornadas Técnico-Científicas do IPS — Edição 2027.
+      organizadora das Jornadas Técnico-Científicas do IPS — Edição 2026.
     </p>
 
     <div class="submeter-prazos">
@@ -108,7 +108,7 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
                 <option value="">Selecione...</option>
                 <option value="comunicacao">Comunicação Oral</option>
                 <option value="poster">Poster Científico</option>
-                <option value="projeto_inova">Projecto INOVA IPS 2027</option>
+                <option value="projeto_inova">Projecto INOVA IPS 2026</option>
               </select>
             </div>
 
@@ -243,7 +243,7 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
       <p class="rodape-inst"><?= e($s['evento_instituicao']) ?></p>
       <p class="rodape-unidade"><?= e($s['evento_organizacao']) ?></p>
       <p class="rodape-evento">Jornadas Técnico-Científicas — <?= e($s['evento_edicao']) ?></p>
-      <p class="rodape-evento">INOVA IPS 2027</p>
+      <p class="rodape-evento">INOVA IPS 2026</p>
     </div>
 
     <div class="rodape-coluna">
@@ -266,7 +266,7 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
 
   <div class="limite rodape-base">
     <p class="rodape-lema"><?= e($s['rodape_lema']) ?></p>
-    <p class="rodape-copy">© 2027 <?= e($s['evento_organizacao']) ?> · <?= e($s['evento_instituicao']) ?></p>
+    <p class="rodape-copy">© 2026 <?= e($s['evento_organizacao']) ?> · <?= e($s['evento_instituicao']) ?></p>
   </div>
 </footer>
 
@@ -325,12 +325,12 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
         resultado.innerHTML =
           '<h2>Submissão recebida com sucesso</h2>' +
           '<p class="resultado-numero">#' + dados.id + '</p>' +
-          '<p>O seu trabalho foi registado nas Jornadas Técnico-Científicas do IPS — Edição 2027. ' +
+          '<p>O seu trabalho foi registado nas Jornadas Técnico-Científicas do IPS — Edição 2026. ' +
           '<strong>Guarde o número de registo</strong> — vai precisar dele para consultar o estado da submissão.</p>' +
           '<p>Foi enviada uma confirmação para <strong>' + escapar(form.email.value) + '</strong>. ' +
           'Se não receber em alguns minutos, verifique a pasta de spam.</p>' +
           '<p class="resultado-rodape">A comissão organizadora irá analisar o trabalho e comunicará a decisão por email, ' +
-          'no prazo indicado (até 3 de Novembro de 2027).</p>' +
+          'no prazo indicado (até 3 de Novembro de 2026).</p>' +
           '<div class="resultado-acoes">' +
             '<a href="consultar.php" class="resultado-botao">Consultar estado da submissão</a>' +
             '<a href="submeter.php" class="resultado-botao secundario">Submeter outro trabalho</a>' +

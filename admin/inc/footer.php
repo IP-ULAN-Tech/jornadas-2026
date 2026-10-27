@@ -1,6 +1,6 @@
 </div>
     <footer class="rodape-admin">
-      Instituto Politécnico de Saurimo · Jornadas Técnico-Científicas 2027 · Painel Administrativo
+      Instituto Politécnico de Saurimo · Jornadas Técnico-Científicas 2026 · Painel Administrativo
     </footer>
   </div>
 </div>

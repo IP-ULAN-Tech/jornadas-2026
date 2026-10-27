@@ -1,4 +1,4 @@
-# Jornadas Técnico-Científicas IPS 2027
+# Jornadas Técnico-Científicas IPS 2026
 
 Site em PHP para apresentar as Jornadas, consultar submissões e enviar trabalhos. O projeto pode ser executado localmente com XAMPP, Apache e MariaDB
 

@@ -125,7 +125,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 
       <div class="marca-texto">
         <span class="marca-inst"><?= e($s['evento_organizacao']) ?></span>
-        <span class="marca-evento">Jornadas Técnico-Científicas · 2027</span>
+        <span class="marca-evento">Jornadas Técnico-Científicas · 2026</span>
       </div>
     </a>
 
@@ -169,7 +169,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <?php if (!$slides): ?>
         <li class="galeria-slide ativo">
           <figure>
-            <img src="<?= e(imagem_url(null, 'Jornadas IPS 2027')) ?>" alt="Jornadas Técnico-Científicas 2027">
+            <img src="<?= e(imagem_url(null, 'Jornadas IPS 2026')) ?>" alt="Jornadas Técnico-Científicas 2026">
             <figcaption>
               <span class="slide-num">01</span>
               <span class="slide-legenda">Instituto Politécnico de Saurimo</span>
@@ -311,7 +311,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <div class="programa-topo">
         <article class="programa-dia detalhes-dia">
           <p class="dia-rotulo">Dia 01</p>
-          <h3 class="dia-data">26 de Novembro de 2027</h3>
+          <h3 class="dia-data">26 de Novembro de 2026</h3>
           <p class="dia-semana">Quinta-feira</p>
 
           <div class="dia-detalhes">
@@ -328,7 +328,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 
         <article class="programa-dia detalhes-dia">
           <p class="dia-rotulo">Dia 02</p>
-          <h3 class="dia-data">27 de Novembro de 2027</h3>
+          <h3 class="dia-data">27 de Novembro de 2026</h3>
           <p class="dia-semana">Sexta-feira</p>
 
           <div class="dia-detalhes">
@@ -366,7 +366,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     <div class="inova-topo">
       <div>
         <p class="rotulo rotulo-inova">04 · Feira de Inovação Tecnológica</p>
-        <h2 class="secao-titulo secao-titulo-inova">INOVA IPS 2027</h2>
+        <h2 class="secao-titulo secao-titulo-inova">INOVA IPS 2026</h2>
       </div>
       <p class="inova-intro"><?= e($s['inova_intro']) ?></p>
     </div>
@@ -474,7 +474,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
   <div class="limite">
     <div class="secao-topo secao-topo-escuro">
       <p class="rotulo">Premiação</p>
-      <h2 class="secao-titulo">Premiação INOVA IPS 2027</h2>
+      <h2 class="secao-titulo">Premiação INOVA IPS 2026</h2>
       <p class="secao-sub">Reconhecimento dos melhores projectos apresentados na Feira de Inovação Tecnológica.</p>
     </div>
 
@@ -491,7 +491,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     <?php if (!$temConteudo): ?>
       <div class="brevemente brevemente-escuro">
         <p class="brevemente-texto">Brevemente</p>
-        <p class="brevemente-nota">Os premiados da INOVA IPS 2027 serão anunciados durante a cerimónia de encerramento, no dia 13 de Novembro de 2027.</p>
+        <p class="brevemente-nota">Os premiados da INOVA IPS 2026 serão anunciados durante a cerimónia de encerramento, no dia 13 de Novembro de 2026.</p>
       </div>
     <?php else: ?>
       <div class="premios">
@@ -621,7 +621,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
     <div class="secao-topo secao-topo-escuro">
       <p class="rotulo">07 · Submissões</p>
       <h2 class="secao-titulo">Submeta o seu trabalho</h2>
-      <p class="secao-sub">As submissões decorrem até 15 de Outubro de 2027.</p>
+      <p class="secao-sub">As submissões decorrem até 15 de Outubro de 2026.</p>
     </div>
 
     <div class="prazos">
@@ -758,7 +758,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
       <p class="rodape-inst"><?= e($s['evento_instituicao']) ?></p>
       <p class="rodape-unidade"><?= e($s['evento_organizacao']) ?></p>
       <p class="rodape-evento">Jornadas Técnico-Científicas — <?= e($s['evento_edicao']) ?></p>
-      <p class="rodape-evento">INOVA IPS 2027</p>
+      <p class="rodape-evento">INOVA IPS 2026</p>
     </div>
 
     <div class="rodape-coluna">
@@ -785,7 +785,7 @@ $galeria = db()->query('SELECT * FROM galeria_itens WHERE ativo = 1 ORDER BY ord
 
   <div class="limite rodape-base">
     <p class="rodape-lema"><?= e($s['rodape_lema']) ?></p>
-    <p class="rodape-copy">© 2027 <?= e($s['evento_organizacao']) ?> · <?= e($s['evento_instituicao']) ?></p>
+    <p class="rodape-copy">© 2026 <?= e($s['evento_organizacao']) ?> · <?= e($s['evento_instituicao']) ?></p>
   </div>
 </footer>
 
