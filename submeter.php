@@ -73,15 +73,15 @@ $eixos = db()->query('SELECT * FROM eixos WHERE ativo = 1 ORDER BY ordem, id')->
 
     <div class="submeter-prazos">
       <div class="submeter-prazo">
-        <span class="submeter-prazo-data">15 de Outubro</span>
+        <span class="submeter-prazo-data">6 de Novembro</span>
         <span class="submeter-prazo-texto">Prazo de submissão</span>
       </div>
       <div class="submeter-prazo">
-        <span class="submeter-prazo-data">3 de Novembro</span>
+        <span class="submeter-prazo-data">17 de Novembro</span>
         <span class="submeter-prazo-texto">Notificação de aceitação</span>
       </div>
       <div class="submeter-prazo">
-        <span class="submeter-prazo-data">8 de Novembro</span>
+        <span class="submeter-prazo-data">23 de Novembro</span>
         <span class="submeter-prazo-texto">Entrega das versões finais</span>
       </div>
     </div>
